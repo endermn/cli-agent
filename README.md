@@ -1,12 +1,10 @@
 # Termini
----
 
 Termini, is a terminal assistant designed to help users interact with their systems and access information efficiently, explaining complex code and handling different agent modes.
 
 ![t-rec](https://github.com/user-attachments/assets/d22bec44-a3bf-41dd-8825-7d6b72afa3f3)
 
 ## Get started
----
 
 1. Install Dependencies:
 	1.1 Install poetry with pip
@@ -39,18 +37,15 @@ Termini, is a terminal assistant designed to help users interact with their syst
 	```
 
 ## Reporting bugs:
----
 
 Feel free to report any current bugs on our (issues page)[https://github.com/endermn/cli-agent/issues]
 Here's a breakdown of its key features and structure:
 
 ## Connect on discord:
----
 
 If there are any other issues feel free to connect with me on (discord)[https://discord.gg/tWhh3CbPm]
 
 ## Features:
----
 
 *   **AI-Powered Assistance:** Utilizes generative AI models to understand and respond to user queries.
 *   **System Information:** Can fetch system specifications and details about the current environment using tools like `fastfetch` and `neofetch`.
@@ -60,7 +55,6 @@ If there are any other issues feel free to connect with me on (discord)[https://
 *	**Custom Agents:** Specific agents available for specific questions.
 
 ## Contributing:
----
 
 Contributions are very welcome!
 Please fork the repository and submit a pull request with your changes in a new branch.
