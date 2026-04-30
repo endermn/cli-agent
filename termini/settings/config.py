@@ -4,9 +4,9 @@ from tools.common_tools.history_parser import TerminalHistoryParser
 from settings.settings import settings
 import logging
 
-from services.logger import GevaiLogger
+from services.logger import terminiLogger
 
-logger: logging.Logger = GevaiLogger(name=__name__, file="gevai.log").get_logger()
+logger: logging.Logger = terminiLogger(name=__name__, file="termini.log").get_logger()
 
 
 class Config:
@@ -15,9 +15,9 @@ class Config:
 
     def __init__(self) -> None:
         if os.name == "nt":
-            self.config_dir = os.path.join(settings.app_data, "gevai")
+            self.config_dir = os.path.join(settings.app_data, "termini")
         else:
-            self.config_dir = os.path.join(os.path.expanduser("~"), ".config", "gevai")
+            self.config_dir = os.path.join(os.path.expanduser("~"), ".config", "termini")
         self.config_file = os.path.join(self.config_dir, "config.ini")
 
     def read_config(self) -> configparser.ConfigParser:

@@ -1,7 +1,36 @@
-This project, Gev-AI, is a terminal assistant designed to help users interact with their systems and access information efficiently.
-It's built with Python and leverages generative AI models for its core functionality.
+# Termini
+---
+
+Termini, is a terminal assistant designed to help users interact with their systems and access information efficiently, explaining complex code and handling different agent modes.
 
 ![t-rec](https://github.com/user-attachments/assets/d22bec44-a3bf-41dd-8825-7d6b72afa3f3)
+
+## Get started
+---
+
+1.  **Install Dependencies:**
+	1.1 Install poetry with pip
+	```bash
+	pip install poetry
+	```
+
+	1.2 Let poetry do the rest
+	```bash
+	poetry install
+	```
+
+2.  **Run installation script:**
+	```bash
+	./scripts/install.sh
+	```
+3.  **Configure:** Set up your environment variables or modify the configuration files as needed. Specifically, you might need to set your API keys for the generative AI model. You can also configure the path to your terminal history using:
+	```bash
+	termini config history='path/to/your/terminal/history'
+	```
+4.  **Run:** Execute the assistant from your terminal:
+	```bash
+	termini <your query>
+	```
 
 Here's a breakdown of its key features and structure:
 
@@ -24,7 +53,7 @@ Ensure that your code adheres to the existing style and includes tests for new f
 
 The project is organized into several key directories:
 
-*   **`gev-ai/`**: The main package containing the core logic.
+*   **`termini/`**: The main package containing the core logic.
 	*   **`core/`**: Houses the central orchestration and interface logic.
 		*   `orchestrator.py`: Manages the AI agent's interaction and workflow.
 		*   `interfaces.py`: Defines data structures and contracts for core components.
@@ -53,31 +82,6 @@ The project is organized into several key directories:
 
 All project dependencies are in the pyproject.toml file, poetry will install them for you.
 
-## Getting Started:
-
-1.  **Install Dependencies:**
-	1.1 Install poetry with pip
-	```bash
-	pip install poetry
-	```
-
-	1.2 Let poetry do the rest
-	```bash
-	poetry install
-	```
-
-2.  **Run installation script:**
-	```bash
-	./scripts/install.sh
-	```
-3.  **Configure:** Set up your environment variables or modify the configuration files as needed. Specifically, you might need to set your API keys for the generative AI model. You can also configure the path to your terminal history using:
-	```bash
-	gevai config history='path/to/your/terminal/history'
-	```
-4.  **Run:** Execute the assistant from your terminal:
-	```bash
-	gevai <your query>
-	```
 
 ## Roadmap:
 

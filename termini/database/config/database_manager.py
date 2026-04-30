@@ -5,6 +5,6 @@ class DatabaseManager:
     engine: Engine
 
     def __init__(self):
-        self.engine = create_engine("sqlite:///gev-ai.db")
+        self.engine = create_engine("sqlite:///termini.db")
 
 database_manager = DatabaseManager()

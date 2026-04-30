@@ -42,6 +42,6 @@ class TerminalHistoryParser:
             hyphen_lines = [line for line in lines if line.strip().startswith("-")]
             return "".join(hyphen_lines[-10:])
         except FileNotFoundError:
-            return f"Error: History file not found at '{history_file}'. Please check the path or configure it with 'gevai config history=<path>'."
+            return f"Error: History file not found at '{history_file}'. Please check the path or configure it with 'termini config history=<path>'."
         except Exception as e:
             return f"An unexpected error occurred: {e}"

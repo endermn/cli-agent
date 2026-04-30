@@ -5,9 +5,9 @@ import shutil
 from typing import Optional
 
 from tools.common_tools.interfaces import SystemInfoInterface
-from services.logger import GevaiLogger
+from services.logger import terminiLogger
 
-logger: logging.Logger = GevaiLogger(name=__name__, file="gevai.log").get_logger()
+logger: logging.Logger = terminiLogger(name=__name__, file="termini.log").get_logger()
 
 class SystemInfo(SystemInfoInterface):
     def get_fastfetch_specs(self) -> Optional[str]:

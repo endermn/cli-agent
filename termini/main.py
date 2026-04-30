@@ -11,23 +11,23 @@ history_parser: TerminalHistoryParser = TerminalHistoryParser()
 
 def main(args: list[str]) -> None:
     if len(args) < 2:
-        print("Please provide a query. Use 'gevai help' for more information.")
+        print("Please provide a query. Use 'termini help' for more information.")
         sys.exit(1)
     if args[1] == "config" and len(args) >= 3 and "history" in args[2]:
         config.change_config(setting=args[2:][0], history_parser=history_parser)
         return
     elif args[1] == "config" and len(args) == 2:
         print(
-            "To set path to terminal history use gevai config history='path_to_history_file'"
+            "To set path to terminal history use termini config history='path_to_history_file'"
         )
         return
     elif args[1] == "help":
-        print("Usage: gevai <your query>")
+        print("Usage: termini <your query>")
         print(
-            "To set path to terminal history use gevai config history='path_to_history_file' (set history='default' to reset to default path)"
+            "To set path to terminal history use termini config history='path_to_history_file' (set history='default' to reset to default path)"
         )
         print(
-            "If it's your first time using gevai, please run the installation script first."
+            "If it's your first time using termini, please run the installation script first."
         )
         return
 

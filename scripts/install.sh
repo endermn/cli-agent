@@ -1,12 +1,12 @@
 #!/bin/bash
 
-# This script creates an executable for the gev-ai Python script
+# This script creates an executable for the termini Python script
 # and installs it in /usr/local/bin.
 
 set -e
 
 # --- Configuration ---
-EXECUTABLE_NAME="gevai"
+EXECUTABLE_NAME="termini"
 INSTALL_DIR="/usr/local/bin"
 INSTALL_PATH="$INSTALL_DIR/$EXECUTABLE_NAME"
 
@@ -22,7 +22,7 @@ echo "Installing '$EXECUTABLE_NAME' to $INSTALL_PATH..."
 SCRIPT_CONTENT="#!/bin/bash
 cd \"$PROJECT_PATH\"
 source .venv/bin/activate
-python gev_ai/main.py \"\$@\"
+python termini/main.py \"\$@\"
 deactivate
 cd - > /dev/null 2>&1
 "

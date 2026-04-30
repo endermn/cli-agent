@@ -1,10 +1,10 @@
 @echo off
 rem 
 
-echo Creating executable for gevai...
+echo Creating executable for termini...
 
 rem --- Configuration ---
-set "EXECUTABLE_NAME=gevai.bat"
+set "EXECUTABLE_NAME=termini.bat"
 
 rem --- Script ---
 
@@ -32,7 +32,7 @@ rem runs the python script with all arguments, and then returns to the original 
     echo call .venv\Scripts\activate.bat
     echo.
     echo rem Run the python script, passing all command-line arguments (%%*)
-    echo python gev-ai\main.py %%*
+    echo python termini\main.py %%*
     echo.
     echo rem Return to the original directory
     echo cd /d "%%ORIGINAL_DIR%%"

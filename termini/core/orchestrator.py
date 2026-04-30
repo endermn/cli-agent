@@ -24,13 +24,13 @@ from google.genai import types, errors
 from typing import Optional
 import logging
 
-from services.logger import GevaiLogger
+from services.logger import terminiLogger
 
-logger: logging.Logger = GevaiLogger(name=__name__, file="gevai.log").get_logger()
+logger: logging.Logger = terminiLogger(name=__name__, file="termini.log").get_logger()
 
 
 class Orchestrator:
-    """Orchestrates the workflow of the GevAI"""
+    """Orchestrates the workflow of the termini"""
 
     config: Config
 

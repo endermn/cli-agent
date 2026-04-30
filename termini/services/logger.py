@@ -1,7 +1,7 @@
 import logging
 
 
-class GevaiLogger():
+class terminiLogger():
     '''A simple logger class that wraps around Python's built-in logging module.'''
     logger: logging.Logger
     formatter: logging.Formatter
