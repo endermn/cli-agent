@@ -1,32 +1,28 @@
-import sys
+from termini.services.system_info import SystemInfo
+from termini.tools.common_tools.interfaces import SystemInfoInterface
+from termini.settings.config import Config
+from termini.tools.common_tools.history_parser import TerminalHistoryParser
 
-from settings.settings import settings
+from termini.agents.interfaces import Agent
+from termini.agents.base_agent import BaseAgent
+from termini.agents.google_search_agent import GoogleSearchAgent
+from termini.prompts.fitness_agent_prompt import system_instructions as fitness_prompt
 
-from services.system_info import SystemInfo
-from tools.common_tools.interfaces import SystemInfoInterface
-from settings.config import Config
-from tools.common_tools.history_parser import TerminalHistoryParser
+from termini.tools.agent_tools.interfaces import Tool
 
-from agents.interfaces import Agent
-from agents.main_agent import BaseAgent
-from agents.google_search_agent import GoogleSearchAgent
-from agents.fitness_agent import FitnessAgent
-
-from tools.agent_tools.interfaces import Tool
-
-from tools.agent_tools.todo import ToDoTool
-from tools.agent_tools.read_files import CatFile
-from tools.agent_tools.weather_tool import WeatherTool
-from tools.agent_tools.system_health import SystemHealthTool
+from termini.tools.agent_tools.todo import ToDoTool
+from termini.tools.agent_tools.read_files import CatFile
+from termini.tools.agent_tools.weather_tool import WeatherTool
+from termini.tools.agent_tools.system_health import SystemHealthTool
 
 from google.genai import types, errors
 
 from typing import Optional
 import logging
 
-from services.logger import terminiLogger
+from termini.services.logger import FileLogger
 
-logger: logging.Logger = terminiLogger(name=__name__, file="termini.log").get_logger()
+logger: logging.Logger = FileLogger(name=__name__, file="termini.log").get_logger()
 
 
 class Orchestrator:
@@ -38,7 +34,7 @@ class Orchestrator:
     files_in_pwd: Optional[str]
     terminal_history: str
 
-    main_agent: Optional[Agent]
+    base_agent: Optional[Agent]
     search_agent: Optional[Agent]
 
     def __init__(self, config: Config) -> None:
@@ -51,12 +47,6 @@ class Orchestrator:
 
         history_parser: TerminalHistoryParser = TerminalHistoryParser()
         self.terminal_history = history_parser.get_terminal_history(self.config)
-
-        api_key = settings.google_api_key
-        if not api_key:
-            print("Error: GENAI_API_KEY environment variable not set.")
-            logger.error("GENAI_API_KEY environment variable not set")
-            sys.exit(1)
 
         weather_tool: Tool = WeatherTool()
         health_tool: Tool = SystemHealthTool()
@@ -73,16 +63,12 @@ class Orchestrator:
             todo_tool.clear_tasks,
         ]
 
-        self.main_agent = BaseAgent(
-            model="gemini-2.5-flash-lite", api_key=api_key, tools=main_tools
-        )
+        self.base_agent = BaseAgent(tools=main_tools)
 
-        self.search_agent = GoogleSearchAgent(
-            model="gemini-2.5-flash-lite", api_key=api_key
-        )
+        self.search_agent = GoogleSearchAgent(model="gemini-2.5-flash-lite")
 
-        self.fitness_agent = FitnessAgent(
-            model="gemini-2.5-flash-lite", api_key=api_key
+        self.fitness_agent = BaseAgent(
+            model="gemini-2.5-flash-lite", system_prompt=fitness_prompt
         )
 
     def start_workflow(self, user_prompt: str, agent_mode: str = "") -> None:
@@ -94,14 +80,14 @@ class Orchestrator:
         elif agent_mode == "monk":
             response = self.call_agent(agent=self.fitness_agent, prompt=user_prompt)
         else:
-            response = self.call_agent(agent=self.main_agent, prompt=user_prompt)
+            response = self.call_agent(agent=self.base_agent, prompt=user_prompt)
 
         if response is None:
             return
 
         # Extract text from response, handling both direct text and function call results
         response_text = self._extract_response_text(response)
-        
+
         if response_text and "google_search_agent" in response_text:
             search_results: Optional[types.GenerateContentResponse] = self.call_agent(
                 agent=self.search_agent, prompt=user_prompt
@@ -152,14 +138,17 @@ class Orchestrator:
             print(f"An unexpected error occurred: {str(e)}")
             logger.error(f"Unexpected error: {str(e)}")
             return None
-    
+
     def _extract_response_text(self, response: types.GenerateContentResponse) -> str:
         """Extract text from response, handling both direct text and function call results"""
         if response.text:
             return response.text
-        
+
         # If automatic function calling was used, extract result from function response
-        if not hasattr(response, 'automatic_function_calling_history') or not response.automatic_function_calling_history:
+        if (
+            not hasattr(response, "automatic_function_calling_history")
+            or not response.automatic_function_calling_history
+        ):
             return ""
 
         for content in reversed(response.automatic_function_calling_history):
@@ -172,9 +161,9 @@ class Orchestrator:
                     continue
 
                 # Check for function response with result
-                if hasattr(part, 'function_response'):
-                    result = func_response.response.get('result', '')
+                if hasattr(part, "function_response"):
+                    result = func_response.response.get("result", "")
                     if result:
                         return result
-        
+
         return ""

@@ -1,5 +1,5 @@
 import logging
 
-from termini.services.logger import terminiLogger
+from termini.services.logger import FileLogger
 
-logger: logging.Logger = terminiLogger(name=__name__, file="termini.log").get_logger()
+logger: logging.Logger = FileLogger(name=__name__, file="termini.log").get_logger()

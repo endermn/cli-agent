@@ -1,8 +1,7 @@
 import logging
 
 
-class terminiLogger():
-    '''A simple logger class that wraps around Python's built-in logging module.'''
+class FileLogger():
     logger: logging.Logger
     formatter: logging.Formatter
 

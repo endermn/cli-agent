@@ -5,9 +5,9 @@ import shutil
 from typing import Optional
 
 from tools.common_tools.interfaces import SystemInfoInterface
-from services.logger import terminiLogger
+from services.logger import FileLogger
 
-logger: logging.Logger = terminiLogger(name=__name__, file="termini.log").get_logger()
+logger: logging.Logger = FileLogger(name=__name__, file="termini.log").get_logger()
 
 class SystemInfo(SystemInfoInterface):
     def get_fastfetch_specs(self) -> Optional[str]:

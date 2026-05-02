@@ -2,6 +2,9 @@
 
 Termini, is a terminal assistant designed to help users interact with their systems and access information efficiently, explaining complex code and handling different agent modes.
 
+(The name gevai was used in the video as the name was different in the past)
+
+
 ![t-rec](https://github.com/user-attachments/assets/d22bec44-a3bf-41dd-8825-7d6b72afa3f3)
 
 ## Get started

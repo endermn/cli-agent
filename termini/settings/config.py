@@ -1,12 +1,12 @@
 import os
 import configparser
-from tools.common_tools.history_parser import TerminalHistoryParser
-from settings.settings import settings
+from termini.tools.common_tools.history_parser import TerminalHistoryParser
+from termini.settings.settings import settings
 import logging
 
-from services.logger import terminiLogger
+from termini.services.logger import FileLogger
 
-logger: logging.Logger = terminiLogger(name=__name__, file="termini.log").get_logger()
+logger: logging.Logger = FileLogger(name=__name__, file="termini.log").get_logger()
 
 
 class Config:
