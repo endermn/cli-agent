@@ -5,8 +5,8 @@ from termini.tools.common_tools.history_parser import TerminalHistoryParser
 
 from termini.agents.interfaces import Agent
 from termini.agents.base_agent import BaseAgent
-from termini.agents.google_search_agent import GoogleSearchAgent
 from termini.prompts.fitness_agent_prompt import system_instructions as fitness_prompt
+from termini.prompts.google_search_agent_prompt import system_prompt as search_prompt
 
 from termini.tools.agent_tools.interfaces import Tool
 
@@ -65,11 +65,12 @@ class Orchestrator:
 
         self.base_agent = BaseAgent(tools=main_tools)
 
-        self.search_agent = GoogleSearchAgent(model="gemini-2.5-flash-lite")
-
-        self.fitness_agent = BaseAgent(
-            model="gemini-2.5-flash-lite", system_prompt=fitness_prompt
+        self.search_agent = BaseAgent(
+            tools=[types.Tool(google_search=types.GoogleSearch)],
+            system_prompt=search_prompt,
         )
+
+        self.fitness_agent = BaseAgent(system_prompt=fitness_prompt)
 
     def start_workflow(self, user_prompt: str, agent_mode: str = "") -> None:
         logger.info("Starting workflow")

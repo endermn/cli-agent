@@ -17,6 +17,7 @@ dependencies = [
     "alembic (>=1.16.5,<2.0.0)",
     "pytest (>=8.4.2,<9.0.0)",
     "bump-pydantic (>=0.8.0,<0.9.0)",
+    "pytest-mockllm (>=0.2.2,<0.3.0)",
 ]
 
 [build-system]

@@ -1,12 +1,11 @@
 import sys
 
-from settings.config import Config
-from tools.common_tools.history_parser import TerminalHistoryParser
-from core.orchestrator import Orchestrator
+from termini.settings.config import Config
+from termini.tools.common_tools.history_parser import TerminalHistoryParser
+from termini.core.orchestrator import Orchestrator
 
 config: Config = Config()
 history_parser: TerminalHistoryParser = TerminalHistoryParser()
-
 
 
 def main(args: list[str]) -> None:
